@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+  <mvc:annotation-driven />
+  <mvc:resources mapping="/assets/**" location="/assets"/>
+<!-- issue1. 외부 경로에서 우리의 엔드포인트로 접근해서 다운로드 받을 수 있도록 설정 -->
+<!--  issu2. 경로 자체가 리터럴 값. 로컬에서는 상관 없는데 다른 환경에선 접근 불가
+      -> upload path 를 다른 곳에서 읽어서 사용자가 property 만 접근해서 동적으로 접근할 수 있도록
+-->
+<!--  property-placholder 를 외부에다 설정해놓으면 서버 재시작만으로 변경할 수 있다. -->
+  <context:property-placeholder location="file:/Users/bagseungmin/Desktop/backend/f_spring/properties/application.properties"/>
+  <mvc:resources mapping="/download/**" location="file:${upload.path}" />
+
+  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix" value="/WEB-INF/view/"/>
+    <property name="suffix" value=".jsp"/>
+  </bean>
+
+  <bean class="org.springframework.web.multipart.support.StandardServletMultipartResolver" id="multipartResolver"/>
+
+
+</beans>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+<!--  static method 호출  -->
+  <bean id="now" class="java.time.LocalDate" factory-method="now"/>
+  <bean id="psm" class="a_regist.a_xml.cheatsheet.Score" >
+    <constructor-arg name="name" value="팜하니"/>
+    <constructor-arg name="kor" value="100"/>
+    <constructor-arg name="math" value="100"/>
+    <constructor-arg name="eng" value="100"/>
+  </bean>
+
+  <bean id="cheatsheet" class="a_regist.a_xml.cheatsheet.CheatSheet">
+    <constructor-arg name="now" ref="now"/>
+    <property name="status" value="SUCCESS"/>
+    <property name="number" value="9999"/>
+    <property name="array">
+      <array>
+        <value>팜하니</value>
+        <value>팜하니</value>
+        <value>팜하니</value>
+        <value>팜하니</value>
+      </array>
+    </property>
+    <property name="list">
+      <list>
+        <value>봄</value>
+        <value>여름</value>
+        <value>가을</value>
+        <value>겨울</value>
+      </list>
+    </property>
+    <property name="set">
+      <set>
+        <value>1</value>
+        <value>2</value>
+        <value>3</value>
+        <value>4</value>
+        <value>5</value>
+      </set>
+    </property>
+    <property name="map">
+      <map>
+        <entry key="Spring" value="봄"></entry>
+        <entry key="Summer" value="여름"></entry>
+        <entry key="Autumn" value="가을"></entry>
+        <entry key="Winter" value="겨울"></entry>
+      </map>
+    </property>
+    <property name="properties">
+      <props>
+        <prop key="sky">하늘</prop>
+        <prop key="earth">땅</prop>
+      </props>
+    </property>
+    <property name="score" ref="psm"/>
+    <property name="scores">
+      <list>
+        <ref bean="psm"/>
+        <bean class="a_regist.a_xml.cheatsheet.Score">
+          <constructor-arg name="name" value="psm" />
+          <constructor-arg name="kor" value="100" />
+          <constructor-arg name="math" value="100" />
+          <constructor-arg name="eng" value="100" />
+        </bean>
+      </list>
+    </property>
+   </bean>
+</beans>
