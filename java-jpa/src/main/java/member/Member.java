@@ -12,14 +12,15 @@ import org.hibernate.annotations.DynamicUpdate;
 @Entity
 @DynamicInsert
 public class Member {
+    // 객체에 값을 채워넣는게 실수를 줄여준다.
     @Id
     private String userId;
     private String password;
     private String email;
-    private String role;
+    private String role = "ROLE_USER";
     private String tel;
-    private Boolean activated ;
-    private LocalDateTime createdAt;
-    private LocalDateTime rentableDate;
+    private Boolean activated = true;
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime rentableDate = LocalDateTime.now().plus(7, ChronoUnit.DAYS);
     
 }
