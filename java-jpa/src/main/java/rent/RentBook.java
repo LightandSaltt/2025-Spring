@@ -22,11 +22,11 @@ public class RentBook {
     private LocalDateTime returnDate;
     private String bookTitle;
     private Boolean activated;
-    
+
     @ManyToOne
     @JoinColumn(name = "bkIdx")
     private Book book;
-    
+
     @ManyToOne
     @JoinColumn(name = "rentId")
     private Rent rent;

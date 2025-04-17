@@ -9,8 +9,8 @@ public class JpaTemplate {
     private static EntityManagerFactory emf;
     private static JpaTemplate instance;
 
-    public static JpaTemplate getInstance() {
-        if (instance == null) {
+    public static JpaTemplate getInstance(){
+        if(instance == null){
             emf = Persistence.createEntityManagerFactory("bookmanager");
             instance = new JpaTemplate();
         }
@@ -18,7 +18,7 @@ public class JpaTemplate {
         return instance;
     }
 
-    public EntityManager createEntityManager() {
+    public EntityManager createEntityManager(){
         return emf.createEntityManager();
     }
 

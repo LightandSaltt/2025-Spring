@@ -10,9 +10,9 @@ import org.hibernate.annotations.DynamicUpdate;
 
 @Data
 @Entity
-@DynamicInsert
+@DynamicInsert  // null 인 컬럼은 쿼리에 포함시키지 않음
+@DynamicUpdate // 변경점이 발생하지 않은 컬럼은 쿼리에 포함시키지 않음
 public class Member {
-    // 객체에 값을 채워넣는게 실수를 줄여준다.
     @Id
     private String userId;
     private String password;
@@ -22,5 +22,9 @@ public class Member {
     private Boolean activated = true;
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime rentableDate = LocalDateTime.now().plus(7, ChronoUnit.DAYS);
-    
+
+    public void modifyPassword(String password) {
+        if(password.length() > 10) return;
+        this.password = password;
+    }
 }

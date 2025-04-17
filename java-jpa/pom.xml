@@ -19,27 +19,6 @@
 
   <dependencies>
 
-    <!-- Spring Boot Starter Web (스프링 부트 웹 애플리케이션에 필요한 의존성) -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-      <version>${spring-boot.version}</version>
-    </dependency>
-
-    <!-- Spring Boot Starter (스프링 부트의 기본적인 스타터 의존성) -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter</artifactId>
-      <version>${spring-boot.version}</version>
-    </dependency>
-
-    <!-- Spring Boot Maven Plugin -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-maven-plugin</artifactId>
-      <version>${spring-boot.version}</version>
-    </dependency>
-
 
     <dependency>
       <groupId>org.hibernate.orm</groupId>

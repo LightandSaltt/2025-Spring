@@ -21,11 +21,11 @@ public class Rent {
     private LocalDateTime createdAt;
     private Boolean isReturn;
     private Boolean activated;
-    
+
     @ManyToOne
     @JoinColumn(name = "userId")
     private Member member;
-    
+
     @OneToMany(mappedBy = "rent")
     private List<RentBook> rentBooks;
 }
