@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.grepp.spring.app.model.member.entity.Member;
 import com.grepp.spring.app.model.member.entity.MemberInfo;
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,13 +21,23 @@ class MemberRepositoryTest {
     }
 
     @Test
-    public void updateInfo(){
+    public void addInfo(){
         Member member = memberRepository.findById("test")
                             .get();
 
         MemberInfo memberInfo = new MemberInfo();
-        memberInfo.setUserId("rengoku");
+        memberInfo.setUserId("test");
         member.setInfo(memberInfo);
+        memberRepository.save(member);
+    }
+
+    @Test
+    public void updateInfo(){
+        Member member = memberRepository.findById("test")
+            .get();
+
+        MemberInfo memberInfo = member.getInfo();
+        memberInfo.setLoginDate(LocalDateTime.now());
         memberRepository.save(member);
     }
 }
