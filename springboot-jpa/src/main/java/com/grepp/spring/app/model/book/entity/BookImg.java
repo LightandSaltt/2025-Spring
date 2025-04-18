@@ -2,6 +2,7 @@ package com.grepp.spring.app.model.book.entity;
 import com.grepp.spring.app.model.book.code.BookImgType;
 import com.grepp.spring.infra.entity.BaseEntity;
 import com.grepp.spring.infra.util.file.FileDto;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import lombok.ToString;
 
 @NoArgsConstructor
 @Getter @Setter @ToString
+@Entity
 public class BookImg extends BaseEntity {
     @Id
     @GeneratedValue
