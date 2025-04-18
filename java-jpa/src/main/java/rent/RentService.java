@@ -40,7 +40,7 @@ public class RentService {
             }).toList();
 
             rent.setMember(member);
-//            rent.setRentBooks(rentBooks);
+            rent.setRentBooks(rentBooks);
             em.persist(rent);
             tx.commit();
         } catch (Exception e) {
@@ -69,7 +69,7 @@ public class RentService {
             rentBook.setBook(book);
 
             rentBook.setRent(rent);
-//            em.persist(rentBook);
+            em.persist(rentBook);
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();

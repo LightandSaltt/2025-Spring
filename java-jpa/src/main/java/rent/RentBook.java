@@ -6,15 +6,31 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class RentBook {
+
+    @Override
+    public String toString() {
+        return "RentBook{" +
+            "rbIdx=" + rbIdx +
+            ", state='" + state + '\'' +
+            ", createdAt=" + createdAt +
+            ", returnDate=" + returnDate +
+            ", bookTitle='" + bookTitle + '\'' +
+            ", activated=" + activated +
+            ", book=" + book +
+            '}';
+    }
+
     @Id
     @GeneratedValue
     private Long rbIdx;
