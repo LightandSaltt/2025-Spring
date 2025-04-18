@@ -9,6 +9,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import lombok.Data;
 
 @Data
@@ -18,10 +19,10 @@ public class RentBook {
     @GeneratedValue
     private Long rbIdx;
     private String state;
-    private LocalDateTime createdAt;
-    private LocalDateTime returnDate;
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime returnDate = LocalDateTime.now().plus(7, ChronoUnit.DAYS);
     private String bookTitle;
-    private Boolean activated;
+    private Boolean activated = true;
 
     @ManyToOne
     @JoinColumn(name = "bkIdx")

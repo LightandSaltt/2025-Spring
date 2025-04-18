@@ -18,14 +18,18 @@ public class Rent {
     @GeneratedValue
     private Long rentId;
     private String title;
-    private LocalDateTime createdAt;
-    private Boolean isReturn;
-    private Boolean activated;
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private Boolean isReturn = false;
+    private Boolean activated = true;
 
     @ManyToOne
     @JoinColumn(name = "userId")
     private Member member;
 
-    @OneToMany(mappedBy = "rent")
+    @OneToMany(mappedBy = "rent") // 연관관계가 아닌 쪽 mappedBy
     private List<RentBook> rentBooks;
+
+    public void addRentBook(RentBook rentBook) {
+        rentBooks.add(rentBook);
+    }
 }
