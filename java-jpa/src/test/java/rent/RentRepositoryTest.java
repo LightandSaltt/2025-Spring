@@ -13,6 +13,7 @@ class RentRepositoryTest {
     private JpaTemplate jpaTemplate = JpaTemplate.getInstance();
     EntityManager em = null;
 
+
     @Test
     @Transactional
     @DisplayName("N+1 이슈 발생")

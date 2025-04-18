@@ -11,23 +11,22 @@ import member.Member;
 public class RentService {
 
     private final RentRepository rentRepository = new RentRepository();
-    private final JpaTemplate jpaTemplate = JpaTemplate.getInstance();
+    private final JpaTemplate template = JpaTemplate.getInstance();
 
-    public void addRent(String userId, List<Long> bkIdx) {
+    public void addRent(String userId, List<Long> bkIdx){
 
-        EntityManager em = jpaTemplate.createEntityManager();
+        EntityManager em = template.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
         try{
             tx.begin();
-            List<Book> books = new ArrayList<Book>();
+            List<Book> books = new ArrayList<>();
 
             bkIdx.forEach(id -> {
                 books.add(em.find(Book.class, id));
             });
 
             Member member = em.find(Member.class, userId);
-
             Rent rent = new Rent();
             rent.setTitle(books.getFirst().getTitle() + "외 [" + (books.size()-1) + "권]");
 
@@ -35,7 +34,6 @@ public class RentService {
                 RentBook rb = new RentBook();
                 rb.setBook(book);
                 rb.setBookTitle(book.getTitle());
-                rb.setRent(rent);
                 return rb;
             }).toList();
 
@@ -43,26 +41,21 @@ public class RentService {
             rent.setRentBooks(rentBooks);
             em.persist(rent);
             tx.commit();
-        } catch (Exception e) {
+        }catch (Exception e){
+            e.printStackTrace();
             tx.rollback();
-        } finally {
+        }finally {
             em.close();
         }
-
-
     }
 
-    // 대출건에 대출 도서 정보 추가
-    public void addRentBook(String userId, long rentId,long bkIdx){
-        EntityManager em = jpaTemplate.createEntityManager();
+    public void addRentBook(String userId, long rentId, long bkIdx){
+        EntityManager em = template.createEntityManager();
         EntityTransaction tx = em.getTransaction();
-
-        try {
+        try{
             tx.begin();
-
-            Book book = em.find(Book.class, bkIdx); // book 정보
-            Rent rent = em.find(Rent.class, userId); // rent 정보 rentId 대출건 조회
-
+            Book book = em.find(Book.class, bkIdx);
+            Rent rent = em.find(Rent.class, rentId);
 
             RentBook rentBook = new RentBook();
             rentBook.setBookTitle(book.getTitle());
@@ -71,11 +64,62 @@ public class RentService {
             rentBook.setRent(rent);
             em.persist(rentBook);
             tx.commit();
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
             tx.rollback();
-        } finally {
+        }finally {
             em.close();
         }
     }
+
+    public void removeRent(long rentId){
+        EntityManager em = template.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try{
+            tx.begin();
+            Rent rent = em.find(Rent.class, rentId);
+            em.remove(rent);
+            tx.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            tx.rollback();
+        }finally {
+            em.close();
+        }
+    }
+
+    public void removeRentBook(long rbIdx){
+        EntityManager em = template.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try{
+            tx.begin();
+            RentBook rentBook = em.find(RentBook.class, rbIdx);
+            rentBook.unlink();
+            tx.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            tx.rollback();
+        }finally {
+            em.close();
+        }
+    }
+
+    public void removeRentBookWithRent(long rentId, long rbIdx){
+        EntityManager em = template.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try{
+            tx.begin();
+            Rent rent = em.find(Rent.class, rentId);
+            rent.removeRentBook(rbIdx);
+            tx.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            tx.rollback();
+        }finally {
+            em.close();
+        }
+    }
+
+
+
 }

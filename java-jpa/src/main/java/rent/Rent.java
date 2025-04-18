@@ -58,4 +58,9 @@ public class Rent {
     public void addRentBook(RentBook rentBook) {
         rentBooks.add(rentBook);
     }
+
+    public void removeRentBook(long rbIdx) {
+        rentBooks.removeIf( e -> e.getRbIdx() == rbIdx );
+        System.out.println(rentBooks);
+    }
 }
