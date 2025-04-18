@@ -23,4 +23,27 @@ class RentRepositoryTest {
 
     }
 
+    // N+1 해결
+    @Test
+    public void findAllWithFetchJoin(){
+        em = jpaTemplate.createEntityManager();
+        rentRepository.findAllWithFetchJoin(em)
+            .forEach(System.out::println);
+    }
+
+    // N+1 해결
+    @Test
+    public void findAllEntityGraph(){
+        em = jpaTemplate.createEntityManager();
+        rentRepository.findAllEntityGraph(em)
+            .forEach(System.out::println);
+    }
+
+    @Test
+    public void findAllEntityEntityGraph(){
+        em = jpaTemplate.createEntityManager();
+        rentRepository.findAllEntityEntityGraph(em)
+            .forEach(System.out::println);
+    }
+
 }
