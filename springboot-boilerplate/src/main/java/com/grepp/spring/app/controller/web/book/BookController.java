@@ -67,7 +67,7 @@ public class BookController {
             throw new CommonException(ResponseCode.BAD_REQUEST);
         }
 
-        PageResponse<BookDto> response = new PageResponse<>(page, 3);
+        PageResponse<BookDto> response = new PageResponse<>("/book/list", page, 3);
         model.addAttribute("page", response);
         return "book/book-list";
     }

@@ -7,10 +7,15 @@ import org.springframework.data.domain.Page;
 @RequiredArgsConstructor
 public class PageResponse<T> {
 
+    private final String url;
     private final Page<T> page;
-    private final int pageButtonCnt; // 화면에 뿌릴 버튼 개수
+    private final int pageButtonCnt;
 
-    public int currentNumber(){ // adaptor
+    public String url(){
+        return url;
+    }
+
+    public int currentNumber(){
         return page.getNumber() + 1;
     }
 
@@ -19,7 +24,7 @@ public class PageResponse<T> {
     }
 
     public int nextPage(){
-        return Math.min(currentNumber() + 1, calcTotalPages());
+        return Math.min(currentNumber() + 1, calcTotalPage());
     }
 
     public int startNumber(){
@@ -27,15 +32,15 @@ public class PageResponse<T> {
     }
 
     public int endNumber(){
-        return Math.min(startNumber() + pageButtonCnt - 1, calcTotalPages());
+        return Math.min(startNumber() + pageButtonCnt - 1, calcTotalPage());
     }
 
-    public List<T> content() {
+    public List<T> content(){
         return page.getContent();
     }
 
-    public int calcTotalPages() {
-        int totalPages = page.getTotalPages();
-        return totalPages == 0 ? totalPages : 1;
+    private int calcTotalPage(){
+        int totalPage = page.getTotalPages();
+        return totalPage == 0 ? 1 : totalPage;
     }
 }
