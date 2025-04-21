@@ -11,15 +11,6 @@ values(1002, 1001, 'super', 'MEMBER', true);
 insert into team_member(id, TEAM_ID, USER_ID, ROLE, activated)
 values(1003, 1001, 'test', 'LEADER', true);
 
-create table bookDto
-(
-    id       int          not null,
-    author   varchar(255) not null,
-    amount   varchar(255) not null,
-    category varchar(255) not null,
-    title    varchar(255) not null,
-    rent_cnt int          not null
-);
 insert into book(id,author,amount,category,title,rent_cnt)values(1000,'김애란','3','NOVEL','비행운',5);
 insert into book(id,author,amount,category,title,rent_cnt)values(1001,'조앤롤링','4','NOVEL','해리포터',4);
 insert into book(id,author,amount,category,title,rent_cnt)values(1002,'에리히프롬','5','HUMANITY','사랑의기술',3);

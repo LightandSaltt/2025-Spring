@@ -6,6 +6,7 @@ import com.grepp.spring.app.model.book.code.Category;
 import com.grepp.spring.app.model.book.dto.BookDto;
 import com.grepp.spring.infra.error.exceptions.CommonException;
 import com.grepp.spring.infra.payload.PageParam;
+import com.grepp.spring.infra.response.PageResponse;
 import com.grepp.spring.infra.response.ResponseCode;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @Slf4j
@@ -61,8 +60,15 @@ public class BookController {
         }
         
         Pageable pageable = PageRequest.of(param.getPage() - 1, param.getSize());
-        Page<BookDto> bookDtos = bookService.findPaged(pageable);
-        model.addAttribute("books", bookDtos);
+        Page<BookDto> page = bookService.findPaged(pageable);
+
+        // 제공된 ui를 사용하지 않고 이상한 경로로 요청했을 때
+        if (param.getPage() != 1 && page.getContent().isEmpty()) {
+            throw new CommonException(ResponseCode.BAD_REQUEST);
+        }
+
+        PageResponse<BookDto> response = new PageResponse<>(page, 3);
+        model.addAttribute("page", response);
         return "book/book-list";
     }
 }
