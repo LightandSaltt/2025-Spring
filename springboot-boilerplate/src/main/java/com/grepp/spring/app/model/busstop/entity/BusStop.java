@@ -14,7 +14,6 @@ import lombok.Setter;
 public class BusStop extends BaseEntity {
 
     @Id
-    @GeneratedValue
     private Long id;
     private String stopsNumber;
     private String name;
