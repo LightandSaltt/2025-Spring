@@ -16,6 +16,7 @@ public class FeignCommonConfig {
         return new Options(5, TimeUnit.SECONDS, 10, TimeUnit.SECONDS, true);
     }
 
+    @Bean
     public RequestInterceptor requestInterceptor() {
         return requestTemplate -> {
             log.info("========================================");
