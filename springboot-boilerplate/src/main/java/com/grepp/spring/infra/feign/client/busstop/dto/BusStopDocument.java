@@ -8,7 +8,6 @@ public record BusStopDocument(
     int totalCount,
     BusStopResult RESULT,
     List<BusStopDto> row
-
 ) {
 
 }
