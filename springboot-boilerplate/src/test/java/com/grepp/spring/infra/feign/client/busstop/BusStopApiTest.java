@@ -1,7 +1,9 @@
 package com.grepp.spring.infra.feign.client.busstop;
 
-import static org.junit.jupiter.api.Assertions.*;
 
+import static org.assertj.core.api.Assertions.*;
+
+import com.grepp.spring.infra.feign.error.FeignCommonException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,14 +13,24 @@ import org.springframework.boot.test.context.SpringBootTest;
 class BusStopApiTest {
 
     @Autowired
-    BusStopApi busStopLocationApi;
+    BusStopApi busStopApi;
 
-    @Value("bus-stop.apikey")
+    @Value("${bus-stop.apikey}")
     String apiKey;
 
     @Test
     public void feignTest(){
-        System.out.println(busStopLocationApi.getBusStop("64524f7863716b72363553766f6b6c", 1,5));
+        System.out.println(busStopApi.getBusStop(apiKey,
+            1,5));
+    }
+
+    @Test
+    public void getBusStop_throwEx_invalidApiKey(){
+        assertThatThrownBy(() -> busStopApi.getBusStop("1111",1,5))
+            .isInstanceOf(FeignCommonException.class)
+            .satisfies(ex -> {
+                System.out.println(ex);
+            });
     }
 
 }

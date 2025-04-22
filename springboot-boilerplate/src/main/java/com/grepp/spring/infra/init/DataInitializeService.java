@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional(readOnly= true)
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class DataInitializeService {
 
@@ -23,16 +23,13 @@ public class DataInitializeService {
     private final ModelMapper mapper;
 
     @Value("${bus-stop.apikey}")
-    String apiKey;
+    private String apiKey;
 
-    @Transient
-    public void initialize(){
+    @Transactional
+    public void initialize() {
         BusStopResponse response = busStopApi.getBusStop(apiKey, 1, 5);
         List<BusStopDto> dtos = response.document().row();
-        busStopRepository.saveAll(dtos.stream().map(e -> mapper.map(e, BusStop.class)).toList());
-
+        List<BusStop> busStops = dtos.stream().map(e -> mapper.map(e, BusStop.class)).toList();
+        busStopRepository.saveAll(busStops);
     }
-
-
-
 }
