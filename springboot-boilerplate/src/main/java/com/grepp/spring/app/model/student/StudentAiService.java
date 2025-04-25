@@ -5,8 +5,14 @@ import com.grepp.spring.app.controller.student.payload.StudentRecommendResponse;
 import com.grepp.spring.app.model.student.code.Sentimental;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.spring.AiService;
+import dev.langchain4j.service.spring.AiServiceWiringMode;
 
-@AiService(contentRetriever = "embeddingStoreContentRetriever")
+//googleAiGeminiChatModel
+@AiService(
+    wiringMode = AiServiceWiringMode.EXPLICIT,
+    chatModel = "googleAiGeminiChatModel",
+    contentRetriever = "embeddingStoreContentRetriever"
+)
 public interface StudentAiService {
 
     @SystemMessage("너는 다정하고 친절한 상담사야.")

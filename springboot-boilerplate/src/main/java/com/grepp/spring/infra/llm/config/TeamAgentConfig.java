@@ -21,7 +21,7 @@ public class TeamAgentConfig {
     }
 
     @Bean
-    public MongoDbEmbeddingStore embeddingStore(EmbeddingModel embeddingModel,
+    public MongoDbEmbeddingStore mflixEmbeddingStore(EmbeddingModel embeddingModel,
         MongoClient mongoClient) {
 
         Boolean createIndex = true;
@@ -49,7 +49,20 @@ public class TeamAgentConfig {
             .embeddingStore(embeddingStore)
             .embeddingModel(embeddingModel)
             .maxResults(100)
-            .minScore(0.85)
+            .minScore(0.6)
+            .build();
+    }
+
+    @Bean
+    EmbeddingStoreContentRetriever mflixContentRetriever(
+        EmbeddingStore<TextSegment> embeddingStore,
+        EmbeddingModel embeddingModel
+    ){
+        return EmbeddingStoreContentRetriever.builder()
+            .embeddingStore(embeddingStore)
+            .embeddingModel(embeddingModel)
+            .maxResults(100)
+            .minScore(0.6)
             .build();
     }
 }
