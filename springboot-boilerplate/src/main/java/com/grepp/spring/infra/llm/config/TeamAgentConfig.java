@@ -40,6 +40,7 @@ public class TeamAgentConfig {
             .build();
     }
 
+    @Bean
     EmbeddingStoreContentRetriever embeddingStoreContentRetriever(
         EmbeddingStore<TextSegment> embeddingStore,
         EmbeddingModel embeddingModel

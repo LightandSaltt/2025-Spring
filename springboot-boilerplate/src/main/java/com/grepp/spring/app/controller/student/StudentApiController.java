@@ -1,5 +1,7 @@
 package com.grepp.spring.app.controller.student;
 
+import com.grepp.spring.app.controller.student.payload.StudentRecommendRequest;
+import com.grepp.spring.app.controller.student.payload.StudentRecommendResponse;
 import com.grepp.spring.app.model.student.StudentAiService;
 import com.grepp.spring.app.model.student.code.Sentimental;
 import com.grepp.spring.infra.response.ApiResponse;
@@ -30,6 +32,13 @@ public class StudentApiController {
         return ResponseEntity.ok(ApiResponse.success(
             studentAiService.classify(message)
         ));
+    }
+
+    @GetMapping("recommend/team")
+    public ResponseEntity<ApiResponse<StudentRecommendResponse>> recommend(
+        StudentRecommendRequest request
+    ){
+        return ResponseEntity.ok(ApiResponse.success(studentAiService.recommendTeam(request)));
     }
 
 }
