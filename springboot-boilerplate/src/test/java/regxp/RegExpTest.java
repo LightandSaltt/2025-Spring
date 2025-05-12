@@ -14,6 +14,10 @@ public class RegExpTest {
         String str = "spring java javascript html";
         Pattern regExp = Pattern.compile("script");
         Matcher matcher = regExp.matcher(str);
+
+        if (matcher.find()) {
+            System.out.println(matcher.group());
+        }
     }
 
 }
