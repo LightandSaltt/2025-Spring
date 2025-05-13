@@ -12,15 +12,16 @@ import org.springframework.context.annotation.Configuration;
 public class FeignCommonConfig {
 
     @Bean
-    public Options requestOptions() {
+    public Options requestOptions(){
         return new Options(5, TimeUnit.SECONDS, 10, TimeUnit.SECONDS, true);
     }
-
+    
     @Bean
-    public RequestInterceptor requestInterceptor() {
+    public RequestInterceptor requestInterceptor(){
         return requestTemplate -> {
-            log.info("========================================");
-            log.info("requestTemplate:{}", requestTemplate);
+            log.info("=========================================================");
+            log.info("requestTemplate : {}", requestTemplate);
         };
     }
+
 }

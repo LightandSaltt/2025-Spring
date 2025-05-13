@@ -6,8 +6,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableJpaAuditing
-@SpringBootApplication
 @EnableFeignClients
+@SpringBootApplication
 public class App {
     
     public static void main(String[] args) {

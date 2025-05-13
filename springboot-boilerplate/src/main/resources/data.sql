@@ -93,6 +93,7 @@ insert into student(user_Id,name,mbti,major,created_at,modified_at,activated) va
 insert into student(user_Id,name,mbti,major,created_at,modified_at,activated) values('user45','양이솔','ISTP','frontend',now(),now(),TRUE);
 
 
+
 insert into team(id, NAME) values (1000, 'grepp');
 insert into team(id, NAME) values (1001, 'programmers');
 

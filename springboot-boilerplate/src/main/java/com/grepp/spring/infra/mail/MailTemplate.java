@@ -1,7 +1,6 @@
 package com.grepp.spring.infra.mail;
 
 import jakarta.mail.Message.RecipientType;
-import jakarta.mail.internet.InternetAddress;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -19,25 +18,26 @@ import org.thymeleaf.context.Context;
 @Setter
 @EnableAsync
 public class MailTemplate {
-
+    
     private final JavaMailSender javaMailSender;
     private final TemplateEngine templateEngine;
     // thymeleaf 의 context 에 전달할 데이터 저장
     private final Map<String, Object> properties = new LinkedHashMap<>();
-
+    
     private String templatePath;
     private String to;
     @Value("${spring.mail.username}")
     private String from;
     private String subject;
-
-    public void setProperties(String name, Object value) {
+    
+    public void setProperties(String name, Object value){
         properties.put(name, value);
     }
-    public Object getProperties(String name) {
+    
+    public Object getProperties(String name){
         return properties.get(name);
     }
-
+    
     @Async
     public void send(){
         javaMailSender.send(mimeMessage -> {
@@ -47,14 +47,10 @@ public class MailTemplate {
             mimeMessage.setText(render(), "UTF-8", "html");
         });
     }
-
+    
     private String render(){
         Context context = new Context();
         context.setVariables(properties);
         return templateEngine.process(templatePath, context);
     }
-
-
-
-
 }

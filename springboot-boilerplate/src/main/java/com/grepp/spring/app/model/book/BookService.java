@@ -53,7 +53,7 @@ public class BookService {
     }
     
     public Page<BookDto> findPaged(Pageable pageable) {
-        return bookRepository.findAll(pageable)
+        return bookRepository.findPaged(pageable)
                    .map(e -> mapper.map(e, BookDto.class));
     }
 }

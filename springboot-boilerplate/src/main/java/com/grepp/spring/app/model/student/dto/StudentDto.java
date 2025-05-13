@@ -1,9 +1,6 @@
 package com.grepp.spring.app.model.student.dto;
 
 import com.grepp.spring.app.model.student.code.MBTI;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
 import lombok.Data;
 
 @Data

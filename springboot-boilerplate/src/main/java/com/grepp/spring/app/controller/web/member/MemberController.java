@@ -35,26 +35,24 @@ public class MemberController {
     public String signup(SignupRequest form){
         return "member/signup";
     }
-
+    
     @PostMapping("verify")
-    public String verifySignUp(
+    public String verifySignup(
         @Valid SignupRequest form,
         BindingResult bindingResult,
         HttpSession session,
-        Model model,
         RedirectAttributes redirectAttributes){
-
+        
         if(bindingResult.hasErrors()){
             return "member/signup";
         }
-
+        
         String token = UUID.randomUUID().toString();
         MemberDto dto = form.toDto();
-        memberService.sendVerificationMail(token, form.toDto());
-        session.setAttribute(token, form);
+        memberService.sendVerificationMail(token, dto);
+        session.setAttribute(token, dto);
         redirectAttributes.addAttribute("msg", "회원가입 메일이 발송되었습니다.");
         return "redirect:/";
-
     }
     
     @GetMapping("signup/{token}")
@@ -62,15 +60,16 @@ public class MemberController {
         @PathVariable
         String token,
         HttpSession session
-    ){
-        MemberDto dto = (MemberDto) session.getAttribute(token); // session 이 object 라 downcasting
-
-        if (dto == null) {
+       ){
+        
+        MemberDto dto = (MemberDto) session.getAttribute(token);
+        
+        if(dto == null){
             throw new CommonException(ResponseCode.INVALID_TOKEN);
         }
-
+        
         memberService.signup(dto, Role.ROLE_USER);
-        session.removeAttribute(token); // 세션 만료시키기
+        session.removeAttribute(token);
         return "redirect:/";
     }
     

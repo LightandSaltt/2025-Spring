@@ -19,15 +19,15 @@ public class Student extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private MBTI mbti;
     private String major;
-
+    
     @Override
     public String toString() {
         return "Student{" +
-            "userId='" + userId + '\'' +
-            ", name='" + name + '\'' +
-            ", mbti=" + mbti +
-            ", personality=" + mbti.desc() +
-            ", major='" + major + '\'' +
-            '}';
+                   "userId='" + userId + '\'' +
+                   ", name='" + name + '\'' +
+                   ", mbti=" + mbti +
+                   ", personality=" + mbti.desc() +
+                   ", major='" + major + '\'' +
+                   '}';
     }
 }

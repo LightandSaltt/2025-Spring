@@ -18,8 +18,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @Slf4j
@@ -61,13 +63,12 @@ public class BookController {
         
         Pageable pageable = PageRequest.of(param.getPage() - 1, param.getSize());
         Page<BookDto> page = bookService.findPaged(pageable);
-
-        // 제공된 ui를 사용하지 않고 이상한 경로로 요청했을 때
-        if (param.getPage() != 1 && page.getContent().isEmpty()) {
+        
+        if(param.getPage() != 1 && page.getContent().isEmpty()){
             throw new CommonException(ResponseCode.BAD_REQUEST);
         }
-
-        PageResponse<BookDto> response = new PageResponse<>("/book/list", page, 3);
+        
+        PageResponse<BookDto> response = new PageResponse<>("/book/list", page, 2);
         model.addAttribute("page", response);
         return "book/book-list";
     }

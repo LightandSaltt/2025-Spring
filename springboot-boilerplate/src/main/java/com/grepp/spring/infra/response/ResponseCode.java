@@ -8,7 +8,6 @@ public enum ResponseCode {
     UNAUTHORIZED("4001", HttpStatus.UNAUTHORIZED, "권한이 없습니다."),
     INVALID_TOKEN("4002", HttpStatus.UNAUTHORIZED, "유효하지 않은 토큰입니다."),
     INTERNAL_SERVER_ERROR("5000", HttpStatus.INTERNAL_SERVER_ERROR, "서버에러 입니다.");
-
     
     private final String code;
     private final HttpStatus status;

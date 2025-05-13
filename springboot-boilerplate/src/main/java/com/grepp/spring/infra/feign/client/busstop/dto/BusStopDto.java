@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class BusStopDto {
 
-    @JsonProperty("NODE_ID") // json 받아오는 객체 이름으로 명시해주고 내가 편한 이름으로 사용
+    @JsonProperty("NODE_ID")
     private Long id;
     @JsonProperty("STOPS_NO")
     private String stopsNumber;
@@ -18,5 +18,5 @@ public class BusStopDto {
     private String latitude;
     @JsonProperty("STOPS_TYPE")
     private String type;
-
+    
 }

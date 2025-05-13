@@ -18,14 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class MemberService{
     
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
     private final ModelMapper mapper;
     private final MailTemplate mailTemplate;
-
+    
     @Value("${app.domain}")
     private String domain;
     
@@ -55,14 +54,14 @@ public class MemberService{
                             .orElseThrow(() -> new CommonException(ResponseCode.BAD_REQUEST));
         return mapper.map(member, MemberDto.class);
     }
-
+    
     public void sendVerificationMail(String token, MemberDto dto) {
         if(memberRepository.existsById(dto.getUserId()))
             throw new CommonException(ResponseCode.BAD_REQUEST);
-
+        
         mailTemplate.setTo(dto.getEmail());
         mailTemplate.setTemplatePath("/mail/signup-verification");
-        mailTemplate.setSubject("회원가입을 환영합니다.");
+        mailTemplate.setSubject("회원가입을 환영합니다!");
         mailTemplate.setProperties("domain", domain);
         mailTemplate.setProperties("token", token);
         mailTemplate.send();
